@@ -1,0 +1,19 @@
+{
+  "name": "Puppeteer Extension",
+  "manifest_version": 3,
+  "version": "0.0.0.1",
+  "description": "Example extension puppeteer-extension-transport",
+  "permissions": ["tabs", "debugger"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "start": {
+      "suggested_key": {
+        "default": "Alt+A"
+      },
+      "description": "for testing puppeteer-extension-transport"
+    }
+  }
+}

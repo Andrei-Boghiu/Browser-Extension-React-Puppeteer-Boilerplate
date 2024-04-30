@@ -1,0 +1,39 @@
+{
+  "name": "browser-extension-puppeteer-boilerplate",
+  "version": "0.0.1",
+  "description": "puppeteer in a browser extension",
+  "author": "",
+  "main": "build/lib/index.js",
+  "types": "build/lib/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "puppeteer",
+    "puppeteer-core",
+    "automation",
+    "extension"
+  ],
+  "scripts": {
+    "prelint": "npm run fix",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "precompile": "npm run clean",
+    "compile": "tsc",
+    "postcompile": "browserify build/src/background.js -o build/src/background.js",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "docs": "typedoc --excludePrivate --excludeInternal --readme none lib/index.ts"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.166",
+    "@types/node": "^14.11.2",
+    "@types/puppeteer-core": "^5.4.0",
+    "browserify": "^17.0.0",
+    "gts": "^3.1.0",
+    "puppeteer-core": "^12.0.1",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-markdown": "^3.11.7",
+    "typescript": "^4.0.3"
+  }
+}

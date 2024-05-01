@@ -1,7 +1,7 @@
 {
-	"name": "browser-extension-puppeteer-boilerplate",
+	"name": "browser-extension-react-puppeteer-boilerplate",
 	"version": "0.0.1",
-	"description": "puppeteer in a browser extension",
+	"description": "A browser extension leveraging the power of the Puppeteer library, designed  for  web automation and  web testing functionalities.",
 	"author": "Andrei-Boghiu",
 	"main": "build/lib/index.js",
 	"types": "build/lib/index.d.ts",

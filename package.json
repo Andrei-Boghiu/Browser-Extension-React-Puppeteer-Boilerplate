@@ -1,7 +1,7 @@
 {
 	"name": "browser-extension-react-puppeteer-boilerplate",
-	"version": "0.0.1",
-	"description": "A browser extension leveraging the power of the Puppeteer library, designed  for  web automation and  web testing functionalities.",
+	"version": "0.1.0",
+	"description": "A browser extension leveraging the power of the Puppeteer library, designed  for  web automation and  web testing.",
 	"author": "Andrei-Boghiu",
 	"main": "build/lib/index.js",
 	"types": "build/lib/index.d.ts",
@@ -23,8 +23,7 @@
 		"postcompile": "browserify build/src/background.js -o build/src/background.js",
 		"fix": "gts fix",
 		"prepare": "npm run compile",
-		"pretest": "npm run compile",
-		"posttest": "npm run lint"
+		"pretest": "npm run compile"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.24.5",

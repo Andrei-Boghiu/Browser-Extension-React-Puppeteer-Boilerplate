@@ -1,11 +1,22 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-// const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+
+function getHtmlPlugins(chunks) {
+	return chunks.map(
+		(chunk) =>
+			new HtmlWebpackPlugin({
+				filename: `${chunk}.html`,
+				template: path.resolve(__dirname, `src/${chunk}/${chunk}.html`),
+				chunks: [chunk],
+			})
+	)
+}
 
 module.exports = {
-	mode: 'development',
-	// mode: 'production',
+	// mode: 'development',
+	mode: 'production',
 	entry: {
 		popup: './src/popup/popup.jsx',
 		options: './src/options/options.jsx',
@@ -29,16 +40,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			filename: 'popup.html',
-			template: path.resolve(__dirname, 'src/popup/popup.html'),
-			chunks: ['popup'],
-		}),
-		new HtmlWebpackPlugin({
-			filename: 'options.html',
-			template: path.resolve(__dirname, 'src/options/options.html'),
-			chunks: ['options'],
-		}),
+		...getHtmlPlugins(['popup', 'options']),
 		new CopyPlugin({
 			patterns: [
 				{
@@ -48,15 +50,14 @@ module.exports = {
 			],
 		}),
 	],
-	//  optimization: {
-	//       minimizer: [
-	//           new TerserPlugin(),
-	//           new OptimizeCSSAssetsPlugin(),
-	//       ],
-	//       splitChunks: {
-	//           chunks: 'all',
-	//       },
-	//   },
+	optimization: {
+		minimizer: [new TerserPlugin()],
+		splitChunks: {
+			chunks: (chunk) => {
+				return chunk.name !== 'background'
+			},
+		},
+	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
 	},

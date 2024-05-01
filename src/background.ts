@@ -1,7 +1,11 @@
 import puppeteer from 'puppeteer-core/lib/cjs/puppeteer/web'
 import { ExtensionDebuggerTransport } from '../lib'
+import { logEvent } from './util/logger'
+import { gotTo } from './workflow/goto'
+import { write } from './workflow/write'
 
 const run = async (tabId: number) => {
+	logEvent('info', 'run', 'starting...')
 	const extensionTransport = await ExtensionDebuggerTransport.create(tabId)
 	const browser = await puppeteer.connect({
 		transport: extensionTransport,
@@ -10,16 +14,12 @@ const run = async (tabId: number) => {
 
 	const [page] = await browser.pages()
 
-	await page.goto('https://wikipedia.org')
+	await gotTo(page)
 
-	const englishButton = await page.waitForSelector('#js-link-box-en > strong')
-	await englishButton?.click()
-
-	const searchBox = await page.waitForSelector('#searchInput')
-	await searchBox?.type('computer science')
-	await page.keyboard.press('Enter')
+	await write(page)
 
 	await page.close()
+	logEvent('info', 'run', 'Done!')
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -33,4 +33,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 			(tab) => (tab.id ? run(tab.id) : null)
 		)
 	}
+})
+
+chrome.runtime.onInstalled.addListener((details) => {
+	let message = ''
+
+	if (details.reason === 'install') {
+		message = 'Extension installed for the first time'
+	} else if (details.reason === 'update') {
+		message = `Extension updated to version ${chrome.runtime.getManifest().version}`
+	}
+
+	logEvent('info', 'Extension Lifecycle', message)
 })

@@ -24,7 +24,7 @@ body {
 	background-color: #333;
 	color: white;
 	border: none;
-	padding: 8px 16px;
+	padding: 6px 8px;
 	margin-right: 8px;
 	border-radius: 4px;
 	cursor: pointer;
@@ -49,21 +49,11 @@ body {
 .log-container {
 	background-color: #202020;
 	border: 1px solid #333333;
-	padding: 10px;
 	margin-bottom: 10px;
 	overflow-y: auto;
 	height: 290px;
 	width: 280px;
 	font-size: 0.9em;
-}
-
-.log {
-	padding: 5px;
-	border-bottom: 1px solid #333333;
-}
-
-.log:last-child {
-	border-bottom: none;
 }
 
 .automation-button {
@@ -92,4 +82,12 @@ body {
 ::-webkit-scrollbar-thumb {
 	background: #0f171f;
 	border-radius: 3px;
+}
+
+.flex-row-evenly {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
 }

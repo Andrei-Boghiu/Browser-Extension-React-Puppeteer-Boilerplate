@@ -3,7 +3,7 @@
 	"manifest_version": 3,
 	"version": "0.1.0",
 	"description": "A browser extension leveraging the power of the Puppeteer library, designed  for  web automation and  web testing.",
-	"permissions": ["tabs", "debugger", "activeTab"],
+	"permissions": ["tabs", "debugger", "activeTab", "storage"],
 	"host_permissions": ["<all_urls>"],
 	"options_page": "options.html",
 	"icons": {

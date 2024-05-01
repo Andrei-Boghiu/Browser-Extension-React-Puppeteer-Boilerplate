@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import './popup.css'
-import { automationLogs } from '../util/logger.ts'
+import { clearStoredLogs, getStoredLogs } from '../util/logger.ts'
+import { Log } from '../components/logs/log.tsx'
 
 const Popup = () => {
 	const [status, setStatus] = useState('stopped')
-	const [logs, setLogs] = useState(automationLogs)
+	const [logs, setLogs] = useState([])
+
+	useEffect(() => {
+		getStoredLogs().then((logs) => {
+			console.log(logs)
+			setLogs(logs)
+		})
+	}, [])
 
 	const startAutomation = () => {
 		chrome.runtime.sendMessage({ action: 'startPuppeteer' })
@@ -29,6 +37,15 @@ const Popup = () => {
 		// Add logic to stop automation here
 	}
 
+	const handleClearLogs = () => {
+		clearStoredLogs().then(() => {
+			getStoredLogs().then((logs) => {
+				console.log(logs)
+				setLogs(logs)
+			})
+		})
+	}
+
 	return (
 		<React.Fragment>
 			<h1 className='title'>Puppeteer Extension</h1>
@@ -43,18 +60,17 @@ const Popup = () => {
 				<button className={`control-button ${status === 'stopped' ? 'active' : ''}`} onClick={handleStop}>
 					Stop
 				</button>
+				<button className='control-button' onClick={handleClearLogs}>
+					Clear Logs
+				</button>
 			</div>
-			<div className='log-container'>
-				{logs?.length > 0 &&
-					logs.map((log, index) => (
-						<div key={index} className='log'>
-							{log}
-						</div>
-					))}
+
+			<div className='log-container'>{logs?.length > 0 && logs.map((log, index) => <Log key={index} log={log}></Log>)}</div>
+			<div className='flex-row-evenly '>
+				<button className='automation-button' onClick={startAutomation}>
+					Start Automation
+				</button>
 			</div>
-			<button className='automation-button' onClick={startAutomation}>
-				Start Automation
-			</button>
 		</React.Fragment>
 	)
 }

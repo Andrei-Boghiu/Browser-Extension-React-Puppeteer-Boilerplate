@@ -22,18 +22,6 @@ const run = async (tabId: number) => {
 	await page.close()
 }
 
-chrome.commands.onCommand.addListener((command) => {
-	if (command === 'start') {
-		chrome.tabs.create(
-			{
-				active: true,
-				url: 'https://www.google.co.in',
-			},
-			(tab) => (tab.id ? run(tab.id) : null)
-		)
-	}
-})
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.action === 'startPuppeteer') {
 		console.log('started')
@@ -44,10 +32,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 			},
 			(tab) => (tab.id ? run(tab.id) : null)
 		)
-		// startPuppeteerAutomation();
-		sendResponse({ status: 'Puppeteer started' })
-	} else {
-		sendResponse({ status: 'Puppeteer not started' })
-		console.log('nope')
 	}
 })

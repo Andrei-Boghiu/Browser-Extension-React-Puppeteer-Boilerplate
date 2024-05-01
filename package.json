@@ -2,7 +2,7 @@
 	"name": "browser-extension-puppeteer-boilerplate",
 	"version": "0.0.1",
 	"description": "puppeteer in a browser extension",
-	"author": "",
+	"author": "Andrei-Boghiu",
 	"main": "build/lib/index.js",
 	"types": "build/lib/index.d.ts",
 	"license": "MIT",
@@ -10,10 +10,11 @@
 		"puppeteer",
 		"puppeteer-core",
 		"automation",
-		"extension"
+		"extension",
+		"react"
 	],
 	"scripts": {
-		"build": "webpack --mode production",
+		"build": "npm run compile && webpack --mode production",
 		"prelint": "npm run fix",
 		"lint": "gts lint",
 		"clean": "gts clean",
@@ -23,8 +24,7 @@
 		"fix": "gts fix",
 		"prepare": "npm run compile",
 		"pretest": "npm run compile",
-		"posttest": "npm run lint",
-		"docs": "typedoc --excludePrivate --excludeInternal --readme none lib/index.ts"
+		"posttest": "npm run lint"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.24.5",
@@ -32,14 +32,15 @@
 		"@babel/preset-react": "^7.24.1",
 		"@types/chrome": "^0.0.166",
 		"@types/node": "^14.11.2",
+		"@types/puppeteer": "^7.0.4",
 		"@types/puppeteer-core": "^5.4.0",
 		"babel-loader": "^9.1.3",
 		"browserify": "^17.0.0",
+		"copy-webpack-plugin": "^12.0.2",
 		"gts": "^3.1.0",
 		"html-webpack-plugin": "^5.6.0",
 		"puppeteer-core": "^12.0.1",
-		"typedoc": "^0.22.10",
-		"typedoc-plugin-markdown": "^3.11.7",
+		"terser-webpack-plugin": "^5.3.10",
 		"typescript": "^4.0.3",
 		"webpack": "^5.91.0",
 		"webpack-cli": "^5.1.4"

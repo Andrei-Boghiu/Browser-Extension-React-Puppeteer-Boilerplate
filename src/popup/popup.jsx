@@ -39,10 +39,7 @@ const Popup = () => {
 
 	const handleClearLogs = () => {
 		clearStoredLogs().then(() => {
-			getStoredLogs().then((logs) => {
-				console.log(logs)
-				setLogs(logs)
-			})
+			setLogs([])
 		})
 	}
 

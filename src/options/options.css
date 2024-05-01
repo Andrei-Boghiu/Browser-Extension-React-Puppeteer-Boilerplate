@@ -1,0 +1,43 @@
+body {
+	font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+	font-size: medium;
+	background-color: #0f171f;
+	color: #fff;
+	margin: auto;
+	padding: 0;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
+
+.title,
+.description {
+	margin-bottom: 8px;
+}
+
+.settings-container {
+	margin-bottom: 20px;
+}
+
+.setting label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.save-button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.save-button:hover {
+	background-color: #0056b3;
+}
